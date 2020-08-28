@@ -1,32 +1,70 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div id="app_container">
+        <!-- 头部 -->
+        <slot name="header">
+            <van-sticky>
+                <div class="header">
+                    <img src="./assets/images/logo.png" alt="" />
+                    <van-search placeholder="请输入搜索关键词" />
+                </div>
+            </van-sticky>
+        </slot>
+
+        <!-- 中间 -->
+        <router-view></router-view>
+        <!-- 底部 -->
+        <div class="footer">
+            <van-tabbar v-model="active">
+                <van-tabbar-item to="/home" icon="wap-home-o"
+                    >首页</van-tabbar-item
+                >
+                <van-tabbar-item to="/mycar" icon="cart-o" badge="2"
+                    >购物车</van-tabbar-item
+                >
+                <van-tabbar-item to="/user" icon="user-o" dot
+                    >我的乐淘</van-tabbar-item
+                >
+            </van-tabbar>
+        </div>
     </div>
-    <router-view/>
-  </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+import { Search, Tabbar, TabbarItem, Sticky } from 'vant'
+export default {
+  data () {
+    return {
+      active: 0
     }
+  },
+  components: {
+    'van-search': Search,
+    'van-tabbar': Tabbar,
+    'van-tabbar-item': TabbarItem,
+    'van-sticky': Sticky
   }
+}
+</script>
+
+<style lang="scss">
+#app_container {
+    min-width: 320px;
+    max-width: 750px;
+    margin: 0px auto;
+    padding-bottom: 50px;
+    .header {
+        background-color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2px;
+        margin: 0px auto;
+        img {
+            width: 44px;
+        }
+        .van-search {
+            flex: 1;
+        }
+    }
 }
 </style>
